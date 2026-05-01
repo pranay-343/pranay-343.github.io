@@ -89,17 +89,19 @@
         return;
       }
 
-      // Mailto fallback (works without backend)
-      const subject = `New project inquiry — ${data.topic || 'general'} (${data.name})`;
+      // Mailto fallback — opens sender's mail client pre-filled to your inbox
+      const subject = `New Lead: ${data.topic || 'Project Inquiry'} — ${data.name}${data.company ? ' @ ' + data.company : ''}`;
       const body =
+        `Hi Pranay,\n\nNew project inquiry from your website.\n\n` +
         `Name: ${data.name}\n` +
         `Email: ${data.email}\n` +
         (data.company ? `Company: ${data.company}\n` : '') +
-        `Topic: ${data.topic || 'general'}\n\n` +
-        `${data.message}`;
+        `Service: ${data.topic || 'General'}\n\n` +
+        `Message:\n${data.message}\n\n` +
+        `---\nSent from pranay-343.github.io`;
       const href = `mailto:pranay343@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       window.location.href = href;
-      status.textContent = 'Opening your email app… If nothing happens, email pranay343@gmail.com directly.';
+      status.textContent = 'Opening your email app…';
       status.className = 'form-status success';
     });
   }
